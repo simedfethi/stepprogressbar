@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="index.css" rel="stylesheet" type="text/css">
+
+    <title>Title</title>
+</head>
+<body>
+<h1>Step progressbar</h1>
+<div class="step" style="width: 800px; height: 32px">
+    <div class="step-li">New</div>
+    <div class="step-li">Create paper</div>
+    <div class="step-li">in progress</div>
+    <div class="step-li">invoice</div>
+    <div class="step-li">deal won</div>
+    <div class="step-li">close transaction</div>
+</div>
+
+</body>
+<script>
+    var  stepindex=2;
+    var currentelement;
+    var firstclass;
+   const colortab =[
+     'blue','green','orange','vert','orange','vert'
+   ];
+    const ek= document.querySelectorAll('.step-li');
+    var arr = Array.prototype.slice.call(ek);
+
+    function onload()
+    {
+        var currentindex= stepindex;
+
+        ek.forEach((divi)=>{
+            if (arr.indexOf(divi)<=currentindex)
+            {
+                divi.className='';
+                divi.classList.add('step-li');
+                divi.classList.add(colortab[currentindex]);
+
+            }
+        })
+
+    }
+    onload();
+    ek.forEach((div)=>{
+
+
+        div.addEventListener('mouseenter',e=>{
+
+
+           var currentindex= arr.indexOf(e.target);
+            stepindex+currentindex;
+        ek.forEach((divi)=>{
+                 if (arr.indexOf(divi)<=currentindex)
+                 {
+                     if(divi.classList[1])
+                     {
+                         firstclass=divi.classList[1];
+                     }
+                     divi.className='';
+                     divi.classList.add('step-li');
+                     divi.classList.add(colortab[currentindex]);
+
+                 }
+            })
+
+        })
+        div.addEventListener('click',(e)=>{
+            currentelement=e.target;
+            currentindex=arr.indexOf(e.target);
+            stepindex=currentindex;
+            ek.forEach((divi)=>{
+                if (arr.indexOf(divi)>currentindex)
+                {
+                    divi.className='';
+                    divi.classList.add('step-li');
+                }
+                if (arr.indexOf(divi)<=currentindex) {
+                    divi.className='';
+                    divi.classList.add('step-li');
+                    divi.classList.add(colortab[currentindex]);
+
+                }
+
+            })
+        })
+        div.addEventListener('mouseleave',e=>{
+            var currentindex= arr.indexOf(e.target);
+            stepindex=currentindex;
+            if (e.target!==currentelement) {
+                ek.forEach((divi) => {
+                    if (arr.indexOf(divi) <= currentindex) {
+                        divi.className='';
+                        divi.classList.add('step-li');
+                        divi.classList.add(firstclass);
+
+                    }
+
+                })
+            }
+
+        })
+    })
+
+</script>
+</html>
