@@ -22,6 +22,7 @@
     var  stepindex=2;
     var currentelement;
     var firstclass;
+    var listSnapshot=[];
    const colortab =[
      'blue','green','orange','vert','orange','vert'
    ];
@@ -31,7 +32,7 @@
     function onload()
     {
         var currentindex= stepindex;
-
+       var i=0;
         ek.forEach((divi)=>{
             if (arr.indexOf(divi)<=currentindex)
             {
@@ -40,6 +41,8 @@
                 divi.classList.add(colortab[currentindex]);
 
             }
+            listSnapshot[i]=divi.classList.value;
+            i++;
         })
 
     }
@@ -71,6 +74,7 @@
             currentelement=e.target;
             currentindex=arr.indexOf(e.target);
             stepindex=currentindex;
+            var i=0;
             ek.forEach((divi)=>{
                 if (arr.indexOf(divi)>currentindex)
                 {
@@ -83,23 +87,19 @@
                     divi.classList.add(colortab[currentindex]);
 
                 }
+                listSnapshot[i]=divi.classList.value;
+                i++;
 
             })
         })
         div.addEventListener('mouseleave',e=>{
             var currentindex= arr.indexOf(e.target);
             stepindex=currentindex;
-            if (e.target!==currentelement) {
-                ek.forEach((divi) => {
-                    if (arr.indexOf(divi) <= currentindex) {
-                        divi.className='';
-                        divi.classList.add('step-li');
-                        divi.classList.add(firstclass);
-
-                    }
-
-                })
-            }
+            var i=0;
+            ek.forEach((divi) => {
+                divi.className=listSnapshot[i];
+                i++;
+            });
 
         })
     })
